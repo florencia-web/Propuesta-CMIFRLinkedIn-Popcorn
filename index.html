@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa de Embajadores de Marca · Fitz Roy — Popcorn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet-900:#250a4f; --violet-800:#34107a; --violet-700:#4a16a8;
+  --violet-600:#5a18cc; --violet-500:#6e28e8; --violet-glow:#7b34f0;
+  --cyan:#1fe8d8; --cyan-bright:#5cf4e8; --cyan-deep:#12b9ad;
+  --ink:#0e0524; --white:#ffffff;
+  --w-80:rgba(255,255,255,.80); --w-65:rgba(255,255,255,.65); --w-45:rgba(255,255,255,.45);
+  --card:rgba(255,255,255,.045); --card-2:rgba(13,4,40,.45);
+  --line:rgba(255,255,255,.14); --line-soft:rgba(255,255,255,.08);
+  --cyan-line:rgba(31,232,216,.35);
+  --maxw:1140px; --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--violet-600);color:var(--white);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.55}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-gradient(1200px 700px at 78% -8%, rgba(123,52,240,.55), transparent 60%),radial-gradient(1000px 800px at -10% 110%, rgba(31,232,216,.10), transparent 55%),linear-gradient(160deg,#4d12b0 0%,#5a18cc 42%,#3d0f95 100%)}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+h1,h2,h3,h4,.display{font-family:'Poppins',sans-serif;font-style:normal}
+em,i{font-style:normal}
+
+/* header */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:18px 38px;transition:all .4s var(--ease)}
+.topbar.scrolled{background:rgba(40,12,100,.78);backdrop-filter:blur(14px);padding:11px 38px;box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.brand-tag{font-family:'Poppins';font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--w-65);display:flex;align-items:center;gap:9px}
+.brand-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.lockup{display:flex;align-items:center;gap:14px}
+.pop-logo{height:24px;width:auto;display:block}
+.pop-logo.close{height:30px}
+.lockup .x{color:var(--w-45);font-family:'Poppins';font-weight:400;font-size:15px}
+.fr-badge{background:#fff;border-radius:9px;padding:7px 11px;display:flex;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.fr-badge img{height:26px;display:block}
+
+/* progreso + nav */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--cyan),var(--cyan-bright));z-index:100;box-shadow:0 0 14px var(--cyan)}
+.dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:12px}
+.dots a{position:relative;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.28);transition:all .3s var(--ease)}
+.dots a:hover{background:var(--w-65);transform:scale(1.25)}
+.dots a.active{background:var(--cyan);box-shadow:0 0 12px var(--cyan);transform:scale(1.35)}
+.dots a span{position:absolute;right:20px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-family:'Poppins';font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--white);background:rgba(20,6,55,.92);padding:5px 10px;border-radius:6px;opacity:0;pointer-events:none;transition:all .25s var(--ease);border:1px solid var(--line-soft)}
+.dots a:hover span{opacity:1;transform:translateY(-50%) translateX(0)}
+
+/* secciones */
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 38px 96px}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+.sfoot{position:absolute;left:38px;right:38px;bottom:30px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins';font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--w-45)}
+.sfoot .num{color:var(--cyan)}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:26px}
+.eyebrow::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.h-lg{font-weight:700;font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.06;letter-spacing:-.015em}
+.cy{color:var(--cyan)}
+.lead{font-size:clamp(1.05rem,1.55vw,1.3rem);color:var(--w-80);max-width:760px;font-weight:400;line-height:1.65}
+
+/* animaciones */
+.r{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.in{opacity:1;transform:none}
+.r.d1{transition-delay:.08s}.r.d2{transition-delay:.16s}.r.d3{transition-delay:.24s}.r.d4{transition-delay:.32s}.r.d5{transition-delay:.4s}
+.scale-in{opacity:0;transform:scale(.94);transition:all .9s var(--ease)}
+.scale-in.in{opacity:1;transform:none}
+
+/* hero */
+#hero{justify-content:center}
+.hero-orbits{position:absolute;right:-160px;top:50%;transform:translateY(-50%);width:760px;height:760px;z-index:0;opacity:.5;pointer-events:none}
+.hero-orbits div{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.12);inset:0}
+.hero-orbits div:nth-child(2){inset:90px}.hero-orbits div:nth-child(3){inset:190px}
+.hero-orbits .core{inset:300px;border:none;background:radial-gradient(circle,rgba(31,232,216,.26),transparent 70%)}
+.hero-title{font-weight:700;font-size:clamp(2.4rem,6vw,5rem);line-height:1.03;letter-spacing:-.03em;max-width:20ch}
+.hero-sub{margin-top:28px;font-size:clamp(1.05rem,1.7vw,1.35rem);color:var(--w-80);max-width:620px;line-height:1.6}
+.hero-tags{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px}
+.tag{font-family:'Poppins';font-weight:500;font-size:13px;color:var(--w-80);border:1px solid var(--line);padding:9px 18px;border-radius:100px;background:rgba(255,255,255,.04)}
+.scrollcue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--w-45);font-family:'Poppins';font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.scrollcue .mouse{width:22px;height:34px;border:1.5px solid var(--w-45);border-radius:12px;position:relative}
+.scrollcue .mouse::after{content:'';position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:3px;background:var(--cyan);transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* cards */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line-soft);border-radius:20px;padding:30px;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.card:hover{transform:translateY(-6px);border-color:var(--cyan-line);background:rgba(255,255,255,.07)}
+.card .ico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(31,232,216,.12);border:1px solid var(--cyan-line);color:var(--cyan);margin-bottom:20px}
+.card .ico svg{width:24px;height:24px}
+.card h3{font-size:1.15rem;font-weight:600;margin-bottom:9px}
+.card p{color:var(--w-65);font-size:.95rem;line-height:1.6}
+.card .num-tag{font-family:'Poppins';font-weight:700;font-size:13px;color:var(--cyan);letter-spacing:.1em;margin-bottom:14px;display:block}
+.card.hl{background:linear-gradient(160deg,rgba(31,232,216,.12),rgba(13,4,40,.4));border-color:var(--cyan-line)}
+
+/* evo / cita */
+.evo{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(31,232,216,.10),rgba(13,4,40,.35));border:1px solid var(--cyan-line);border-radius:24px;padding:clamp(34px,5vw,56px);margin-top:14px}
+.evo .evo-bg{position:absolute;inset:0;z-index:0}
+.evo .evo-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.6) brightness(.4) contrast(1.05)}
+.evo .evo-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,rgba(40,12,100,.94),rgba(40,12,100,.6))}
+.evo>*:not(.evo-bg){position:relative;z-index:1}
+.evo .badge{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:11px;color:var(--cyan);margin-bottom:22px;border:1px solid var(--cyan-line);padding:8px 16px;border-radius:100px}
+.evo blockquote{font-family:'Poppins';font-weight:500;font-size:clamp(1.3rem,2.6vw,2rem);line-height:1.32;letter-spacing:-.01em;max-width:26ch}
+.evo .sign{margin-top:22px;color:var(--w-65);font-size:.98rem;max-width:640px}
+
+/* workshop steps */
+.wk{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:stretch;margin-top:14px}
+.wk-media{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line-soft);min-height:340px}
+.wk-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:saturate(.9) contrast(1.05) brightness(.9)}
+.wk-media::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(74,18,168,.45),rgba(18,5,40,.2) 55%,rgba(31,232,216,.14))}
+.wk-media .free{position:absolute;left:22px;top:22px;z-index:2;display:inline-flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--cyan);padding:9px 16px;border-radius:100px;box-shadow:0 8px 24px rgba(31,232,216,.35)}
+.wk-media .dur{position:absolute;left:22px;bottom:22px;z-index:2;font-family:'Poppins';font-weight:600;font-size:1.05rem;color:#fff}
+.wk-media .dur b{display:block;font-size:2.2rem;line-height:1;color:var(--cyan)}
+.wk-list{display:flex;flex-direction:column;gap:12px}
+.wk-list .it{display:flex;gap:14px;align-items:flex-start;background:var(--card-2);border:1px solid var(--line-soft);border-radius:14px;padding:16px 18px;transition:all .35s var(--ease)}
+.wk-list .it:hover{border-color:var(--cyan-line);transform:translateX(4px)}
+.wk-list .it .ck{flex:none;width:24px;height:24px;border-radius:7px;background:rgba(31,232,216,.12);border:1px solid var(--cyan-line);color:var(--cyan);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.wk-list .it .ck svg{width:14px;height:14px}
+.wk-list .it p{font-family:'Poppins';font-weight:500;font-size:1rem;color:var(--w-80)}
+
+/* objetivos */
+.obj{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+.ob{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:26px 20px;transition:all .4s var(--ease)}
+.ob:hover{border-color:var(--cyan-line);transform:translateY(-6px);background:rgba(255,255,255,.06)}
+.ob .oi{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(31,232,216,.12);border:1px solid var(--cyan-line);color:var(--cyan);margin-bottom:18px}
+.ob .oi svg{width:22px;height:22px}
+.ob h3{font-size:1.02rem;font-weight:600;line-height:1.25}
+
+/* encuentro / incluye */
+.enc{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;margin-top:14px}
+.enc-media{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--line-soft);aspect-ratio:4/3}
+.enc-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05) brightness(.92)}
+.enc-media::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(74,18,168,.4),rgba(18,5,40,.15) 55%,rgba(31,232,216,.12))}
+.enc-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.enc-list .e{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:15px 16px;transition:all .35s var(--ease)}
+.enc-list .e:hover{border-color:var(--cyan-line);color:var(--cyan);transform:translateY(-3px)}
+.enc-list .e .d{flex:none;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.enc-list .e span{font-family:'Poppins';font-weight:500;font-size:.94rem}
+
+/* programa (merge objetivos + encuentro) */
+.prog-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px;align-items:start}
+.panel{background:var(--card-2);border:1px solid var(--line-soft);border-radius:22px;padding:32px}
+.panel.hl{background:linear-gradient(165deg,rgba(31,232,216,.1),rgba(13,4,40,.45));border-color:var(--cyan-line)}
+.panel .ph{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.panel .ph .pi{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(31,232,216,.12);border:1px solid var(--cyan-line);color:var(--cyan);flex:none}
+.panel .ph .pi svg{width:20px;height:20px}
+.panel .ph h3{font-family:'Poppins';font-weight:700;font-size:1.15rem}
+.plist{list-style:none;display:flex;flex-direction:column;gap:14px}
+.plist li{display:flex;gap:12px;align-items:flex-start;font-size:.98rem;color:var(--w-80);line-height:1.4}
+.plist li .dt{flex:none;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 9px var(--cyan);margin-top:7px}
+.plist.check li svg{flex:none;width:17px;height:17px;color:var(--cyan);margin-top:2px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:11px;margin-top:40px}
+.chip{font-family:'Poppins';font-weight:500;font-size:.96rem;padding:13px 22px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line-soft);transition:all .35s var(--ease)}
+.chip:hover{border-color:var(--cyan-line);color:var(--cyan);transform:translateY(-3px)}
+.chip .n{font-family:'Poppins';font-weight:700;font-size:.78rem;color:var(--cyan);margin-right:8px}
+
+/* planes / inversión */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+.plan{position:relative;background:var(--card-2);border:1.5px solid var(--line-soft);border-radius:24px;padding:34px 32px;cursor:pointer;transition:all .35s var(--ease);overflow:hidden}
+.plan:hover{border-color:var(--cyan-line);transform:translateY(-5px)}
+.plan.selected{border-color:var(--cyan);background:linear-gradient(165deg,rgba(31,232,216,.14),rgba(13,4,40,.5));box-shadow:0 20px 60px rgba(31,232,216,.14)}
+.plan .ptop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.plan .pmod{font-family:'Poppins';font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+.plan h3{font-family:'Poppins';font-weight:700;font-size:1.5rem;letter-spacing:-.01em}
+.plan .freq{color:var(--w-65);font-size:.95rem;margin-top:4px}
+.plan .amount{font-family:'Poppins';font-weight:700;font-size:clamp(2rem,4vw,2.9rem);color:#fff;line-height:1;margin-top:22px}
+.plan .amount small{display:block;font-size:.9rem;color:var(--cyan);font-weight:600;margin-top:7px;letter-spacing:.02em}
+.plan hr{border:none;border-top:1px solid var(--line-soft);margin:24px 0}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.plan ul li{display:flex;gap:11px;align-items:flex-start;font-size:.94rem;color:var(--w-80);line-height:1.45}
+.plan ul li svg{flex:none;width:17px;height:17px;color:var(--cyan);margin-top:3px}
+.plan .pick{margin-top:26px;display:flex;align-items:center;gap:11px;font-family:'Poppins';font-weight:600;font-size:.92rem;color:var(--w-65)}
+.plan .radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--w-45);flex:none;position:relative;transition:all .3s var(--ease)}
+.plan.selected .radio{border-color:var(--cyan)}
+.plan.selected .radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.plan.selected .pick{color:var(--cyan)}
+.plan .flag{position:absolute;right:-34px;top:20px;transform:rotate(45deg);background:var(--cyan);color:var(--ink);font-family:'Poppins';font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 40px}
+.mininote{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.note-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:100px;padding:11px 20px;font-size:.86rem;color:var(--w-65)}
+.note-pill b{color:var(--cyan);font-family:'Poppins';font-weight:600}
+
+/* bg photo */
+.bg-photo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.bg-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) brightness(.62) contrast(1.05)}
+.bg-photo.hero img{object-position:50% 30%}
+.bg-photo.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(40,12,100,.96) 24%,rgba(74,18,168,.66) 60%,rgba(31,232,216,.1))}
+.bg-photo.center::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 120% at 50% 42%,rgba(74,18,168,.72),rgba(18,5,40,.95))}
+
+/* cierre */
+#cierre{text-align:center;align-items:center}
+#cierre .wrap{display:flex;flex-direction:column;align-items:center}
+.close-title{font-family:'Poppins';font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;letter-spacing:-.02em;max-width:22ch}
+.choose{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:34px;background:rgba(13,4,40,.4);border:1px solid var(--line-soft);border-radius:100px;padding:7px}
+.choose button{font-family:'Poppins';font-weight:600;font-size:.9rem;color:var(--w-65);background:transparent;border:none;padding:11px 22px;border-radius:100px;cursor:pointer;transition:all .3s var(--ease)}
+.choose button:hover{color:#fff}
+.choose button.on{background:var(--cyan);color:var(--ink)}
+.chosen-label{margin-top:20px;font-family:'Poppins';font-size:.92rem;color:var(--w-65)}
+.chosen-label b{color:var(--cyan);font-weight:600}
+.cta-go{display:inline-flex;align-items:center;gap:12px;margin-top:24px;padding:18px 44px;border-radius:100px;font-family:'Poppins';font-weight:700;font-size:1.05rem;color:var(--ink);background:linear-gradient(95deg,var(--cyan),var(--cyan-bright));text-decoration:none;box-shadow:0 12px 36px rgba(31,232,216,.32);transition:all .25s ease}
+.cta-go:hover{transform:translateY(-3px);box-shadow:0 18px 48px rgba(31,232,216,.45)}
+.cta-go svg{width:20px;height:20px}
+.signoff{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.signoff .who{font-family:'Poppins';font-weight:700;font-size:1.15rem;color:#fff}
+.signoff .role{font-family:'Poppins';font-weight:500;font-size:.9rem;letter-spacing:.04em;color:var(--cyan);margin-top:2px}
+.signoff .mail{font-size:.86rem;color:var(--w-45);margin-top:4px}
+.close-lockup{display:flex;align-items:center;gap:16px;margin-top:10px}
+.close-lockup .x{color:var(--w-45);font-size:18px}
+
+/* responsive */
+@media(max-width:900px){
+  section{padding:104px 22px 84px}
+  .dots{display:none}
+  .sfoot{left:22px;right:22px}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .wk{grid-template-columns:1fr}
+  .wk-media{min-height:240px}
+  .obj{grid-template-columns:1fr 1fr}
+  .enc{grid-template-columns:1fr;gap:24px}
+  .prog-split{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .topbar{padding:14px 20px}.topbar .brand-tag{display:none}
+}
+@media(max-width:560px){.obj{grid-template-columns:1fr}.enc-list{grid-template-columns:1fr}.hero-tags .tag{font-size:12px}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<header class="topbar" id="topbar">
+  <div class="brand-tag"><span class="dot"></span>Programa de Embajadores de Marca</div>
+  <div class="lockup">
+    <img class="pop-logo" src="img/popcorn-blanco.png" alt="Popcorn"><span class="x">×</span>
+    <span class="fr-badge"><img src="img/logo.svg" alt="Centro Médico Integral Fitz Roy"></span>
+  </div>
+</header>
+
+<nav class="dots" id="dots"></nav>
+
+<!-- 1 · HERO -->
+<section id="hero" data-label="Inicio">
+  <div class="bg-photo hero"><img src="img/profesional-linkedin.jpg" alt="Profesional en LinkedIn" loading="eager"></div>
+  <div class="hero-orbits"><div></div><div></div><div></div><div class="core"></div></div>
+  <div class="wrap">
+    <div class="eyebrow r">Fitz Roy × Popcorn · LinkedIn 2026</div>
+    <h1 class="hero-title r d1">Programa de<br>Embajadores de <span class="cy">Marca.</span></h1>
+    <p class="hero-sub r d3">Potenciá la voz de tu empresa a través de las personas. Convertimos a tu equipo en referentes de la salud laboral en LinkedIn.</p>
+    <div class="hero-tags r d4">
+      <span class="tag">Marca personal</span>
+      <span class="tag">LinkedIn</span>
+      <span class="tag">Contenido con IA</span>
+      <span class="tag">Employer branding</span>
+    </div>
+  </div>
+  <div class="scrollcue"><div class="mouse"></div>Desliz&aacute; para ver</div>
+</section>
+
+<!-- 2 · LA OPORTUNIDAD -->
+<section id="oportunidad" data-label="La oportunidad">
+  <div class="wrap">
+    <div class="eyebrow r">Por qué ahora</div>
+    <h2 class="h-lg r d1" style="max-width:20ch">La gente confía en personas,<br>no en <span class="cy">logos.</span></h2>
+    <p class="lead r d2" style="margin-top:22px">En salud laboral, quien decide —RRHH, Capital Humano, Seguridad e Higiene, ART— confía en <b style="color:#fff;font-family:Poppins;font-weight:600">referentes reales</b>, no en avisos. LinkedIn es el único canal donde el equipo de Fitz Roy le habla directo a esos decisores. Y hoy casi nadie del sector lo está usando bien: la oportunidad está abierta.</p>
+
+    <div class="grid g3 r d3" style="margin-top:46px">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Alcance orgánico real</h3><p>El contenido de una persona llega mucho más lejos que el de una página. Multiplica la visibilidad sin pauta.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+        <h3>Autoridad profesional</h3><p>Cada especialista que publica posiciona a Fitz Roy como el que más sabe de medicina laboral.</p>
+      </div>
+      <div class="card hl">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+        <h3>Oportunidades comerciales</h3><p>La visibilidad correcta, frente a la audiencia correcta, genera consultas de empresas de forma natural.</p>
+      </div>
+    </div>
+
+    <p class="r d4" style="margin-top:34px"><span class="note-pill"><b>A quién impactamos</b> · RRHH · Capital Humano · Seguridad e Higiene · CEOs · ART · Consultoras</span></p>
+  </div>
+  <div class="sfoot"><span>La voz del equipo construye la marca</span><span class="num">01 — La oportunidad</span></div>
+</section>
+
+<!-- 3 · WORKSHOP INICIAL -->
+<section id="workshop" data-label="Workshop inicial">
+  <div class="wrap">
+    <div class="eyebrow r">Primer paso · sin costo</div>
+    <h2 class="h-lg r d1" style="max-width:20ch">Empezá con un Workshop <span class="cy">sin cargo.</span></h2>
+    <p class="lead r d2" style="margin-top:20px">Antes de implementar el programa, hacemos un encuentro inicial para que el equipo conozca la metodología, experimente el formato y evalúe el impacto. Sin compromiso: si aporta valor, siguen; si no, no.</p>
+
+    <div class="wk r d3" style="margin-top:40px">
+      <div class="wk-media scale-in">
+        <img src="img/team-workshop.jpg" alt="Workshop de equipo">
+        <span class="free">✦ Sin costo</span>
+        <span class="dur"><b>90'</b> minutos de trabajo en equipo</span>
+      </div>
+      <div class="wk-list">
+        <div class="it r d1"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>El potencial de LinkedIn para la marca de la empresa</p></div>
+        <div class="it r d1"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>Qué es una marca personal y por qué genera más confianza</p></div>
+        <div class="it r d2"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>Buenas prácticas para empezar a publicar</p></div>
+        <div class="it r d2"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>Casos de éxito reales</p></div>
+        <div class="it r d3"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>Qué publicar y qué evitar</p></div>
+        <div class="it r d3"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><p>Primeros pasos para que cada colaborador sea embajador</p></div>
+      </div>
+    </div>
+    <p class="r d4" style="margin-top:26px"><span class="note-pill"><b>También sirve como actividad de sensibilización</b> para motivar al equipo antes de arrancar</span></p>
+  </div>
+  <div class="sfoot"><span>Conocer la metodología, sin compromiso</span><span class="num">02 — Workshop inicial</span></div>
+</section>
+
+<!-- 4 · EL PROGRAMA -->
+<section id="programa" data-label="El programa">
+  <div class="wrap">
+    <div class="eyebrow r">El programa</div>
+    <h2 class="h-lg r d1" style="max-width:22ch">Herramientas prácticas para volverse <span class="cy">referentes.</span></h2>
+    <p class="lead r d2" style="margin-top:20px">Encuentros prácticos, no teóricos. Entre uno y otro el equipo publica, prueba y vuelve con dudas reales; en cada sesión revisamos resultados y definimos la próxima estrategia.</p>
+
+    <div class="prog-split">
+      <div class="panel hl r d3">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span><h3>Qué buscamos lograr</h3></div>
+        <ul class="plist">
+          <li><span class="dt"></span>Potenciar la marca personal de los colaboradores</li>
+          <li><span class="dt"></span>Incrementar la visibilidad de la empresa en LinkedIn</li>
+          <li><span class="dt"></span>Generar oportunidades comerciales de forma orgánica</li>
+          <li><span class="dt"></span>Posicionar líderes y especialistas como referentes</li>
+          <li><span class="dt"></span>Crear una cultura de generación de contenido</li>
+        </ul>
+      </div>
+      <div class="panel r d4">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><h3>Qué incluye cada encuentro</h3></div>
+        <ul class="plist check">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Tendencias nuevas de LinkedIn y revisión de casos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Ideas de contenido y ejercicios prácticos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Uso de IA para crear publicaciones</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Análisis de perfiles destacados</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Espacio de preguntas y resolución de dudas</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="r d5" style="margin-top:26px"><span class="note-pill"><b>Temario de 12 ejes</b> · marca personal · perfil · IA aplicada · video corto · storytelling · métricas · networking</span></p>
+  </div>
+  <div class="sfoot"><span>Aprender haciendo, con resultados reales</span><span class="num">03 — El programa</span></div>
+</section>
+
+<!-- 5 · MODALIDADES E INVERSIÓN -->
+<section id="modalidades" data-label="Modalidades">
+  <div class="wrap">
+    <div class="eyebrow r">Modalidades e inversión</div>
+    <h2 class="h-lg r d1" style="max-width:22ch">Elegí el ritmo que mejor <span class="cy">le sirve al equipo.</span></h2>
+    <p class="lead r d2" style="margin-top:20px">Dos modalidades, misma metodología. Toqu&aacute; una para elegirla: la opción queda lista para avanzar al final de la propuesta.</p>
+
+    <div class="plans">
+      <div class="plan selected r d3" data-opt="Modalidad A · Encuentro mensual">
+        <span class="flag">Recomendada</span>
+        <div class="ptop"><span class="pmod">Modalidad A</span></div>
+        <h3>Encuentro mensual</h3>
+        <p class="freq">1 encuentro por mes · máx. 90 minutos</p>
+        <div class="amount">$950.000 <small>+ IVA por mes · contrato mínimo 6 meses</small></div>
+        <hr>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Workshop inicial incluido</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>1 encuentro mensual + material de apoyo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Espacio de preguntas y seguimiento</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Mantiene el hábito sin demandar mucho tiempo</li>
+        </ul>
+        <div class="pick"><span class="radio"></span><span class="pick-txt">Opción elegida</span></div>
+      </div>
+
+      <div class="plan r d4" data-opt="Modalidad B · Encuentro bimensual">
+        <div class="ptop"><span class="pmod">Modalidad B</span></div>
+        <h3>Encuentro bimensual</h3>
+        <p class="freq">1 encuentro cada 2 meses · 90 minutos</p>
+        <div class="amount">$325.000 <small>+ IVA por mes · encuentros cada 60 días</small></div>
+        <hr>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Inversión más accesible para empezar</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>El equipo sigue aplicando lo aprendido entre sesiones</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Revisión de resultados y publicaciones en cada encuentro</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Nuevas estrategias en cada sesión</li>
+        </ul>
+        <div class="pick"><span class="radio"></span><span class="pick-txt">Elegir esta opción</span></div>
+      </div>
+    </div>
+
+    <div class="mininote r d5">
+      <span class="note-pill"><b>Sin apuro</b> · empezá por el Workshop sin costo y decidí después</span>
+      <span class="note-pill"><b>Sin compromiso</b> · continuás con el programa solo si aporta valor</span>
+    </div>
+  </div>
+  <div class="sfoot"><span>Mensual o bimensual · misma metodología</span><span class="num">04 — Inversión</span></div>
+</section>
+
+<!-- 8 · CIERRE -->
+<section id="cierre" data-label="Avancemos">
+  <div class="bg-photo center"><img src="img/mentoria.jpg" alt="Equipo Fitz Roy"></div>
+  <div class="hero-orbits" style="left:-200px;right:auto"><div></div><div></div><div></div><div class="core"></div></div>
+  <div class="wrap">
+    <div class="r" style="margin-bottom:22px"><span class="note-pill"><b>Fitz Roy × Popcorn</b> · Programa de Embajadores de Marca</span></div>
+    <h2 class="close-title r d1">La marca más fuerte del sector<br>puede tener las <span class="cy">voces</span> más fuertes.</h2>
+    <p class="lead r d2" style="margin:24px auto 0;text-align:center">Elegí cómo querés dar el primer paso y lo coordinamos con Demián.</p>
+
+    <div class="choose r d3" id="choose">
+      <button data-opt="Workshop inicial (sin costo)">Workshop sin costo</button>
+      <button class="on" data-opt="Modalidad A · Encuentro mensual">Modalidad A · mensual</button>
+      <button data-opt="Modalidad B · Encuentro bimensual">Modalidad B · bimensual</button>
+    </div>
+    <p class="chosen-label r d3">Vas a avanzar con: <b id="chosenText">Modalidad A · Encuentro mensual</b></p>
+
+    <div class="r d4" style="text-align:center">
+      <a class="cta-go" id="cta" href="#">
+        Avanzar con esta opción
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="signoff r d5">
+      <div style="text-align:center">
+        <div class="who">Demián Linetzky</div>
+        <div class="role">Executive Director · Popcorn</div>
+        <div class="mail">demianlinet@somospopcorn.com</div>
+      </div>
+      <div class="close-lockup">
+        <img class="pop-logo close" src="img/popcorn-blanco.png" alt="Popcorn"><span class="x">×</span>
+        <span class="fr-badge"><img src="img/logo.svg" alt="Centro Médico Integral Fitz Roy" style="height:30px"></span>
+      </div>
+    </div>
+  </div>
+  <div class="sfoot"><span>Popcorn · Marketing &amp; Comunicación</span><span class="num">somospopcorn.com</span></div>
+</section>
+
+<script>
+const prog=document.getElementById('prog'),topbar=document.getElementById('topbar');
+function onScroll(){const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(scrollY/h*100)+'%';topbar.classList.toggle('scrolled',scrollY>40);}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+const sections=[...document.querySelectorAll('section')];
+const dots=document.getElementById('dots');
+sections.forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<span>'+(s.dataset.label||s.id)+'</span>';dots.appendChild(a);});
+const dotEls=[...dots.children];
+
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.r,.scale-in').forEach(el=>io.observe(el));
+
+const active=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const i=sections.indexOf(e.target);dotEls.forEach((d,k)=>d.classList.toggle('active',k===i));}});},{threshold:.5});
+sections.forEach(s=>active.observe(s));
+
+/* ---- Selección de opción → mailto a Demián ---- */
+const MAIL='demianlinet@somospopcorn.com';
+let selected='Modalidad A · Encuentro mensual';
+const cta=document.getElementById('cta');
+const chosenText=document.getElementById('chosenText');
+const plans=[...document.querySelectorAll('.plan')];
+const chooseBtns=[...document.querySelectorAll('#choose button')];
+
+function buildMailto(opt){
+  const subject='Programa de Embajadores de Marca · Fitz Roy — '+opt;
+  const body='Hola Demián,\n\nVimos la propuesta del Programa de Embajadores de Marca en LinkedIn para Fitz Roy y queremos avanzar con:\n\n• '+opt+'\n\n¿Coordinamos los próximos pasos?\n\nGracias.';
+  return 'mailto:'+MAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+}
+function setSelected(opt){
+  selected=opt;
+  chosenText.textContent=opt;
+  cta.href=buildMailto(opt);
+  plans.forEach(p=>p.classList.toggle('selected',p.dataset.opt===opt));
+  chooseBtns.forEach(b=>b.classList.toggle('on',b.dataset.opt===opt));
+}
+plans.forEach(p=>p.addEventListener('click',()=>setSelected(p.dataset.opt)));
+chooseBtns.forEach(b=>b.addEventListener('click',()=>setSelected(b.dataset.opt)));
+setSelected(selected);
+</script>
+</body>
+</html>
