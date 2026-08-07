@@ -162,7 +162,7 @@ section{position:relative;min-height:100vh;display:flex;flex-direction:column;ju
 .plan{position:relative;display:flex;flex-direction:column;background:var(--card-2);border:1.5px solid var(--line-soft);border-radius:22px;padding:30px 26px;cursor:pointer;transition:all .35s var(--ease);overflow:hidden}
 .plan:hover{border-color:var(--cyan-line);transform:translateY(-5px)}
 .plan.selected{border-color:var(--cyan);background:linear-gradient(165deg,rgba(31,232,216,.14),rgba(13,4,40,.5));box-shadow:0 20px 60px rgba(31,232,216,.14)}
-.plan .ptop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.plan .ptop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;min-height:24px}
 .plan .pmod{font-family:'Poppins';font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
 .plan h3{font-family:'Poppins';font-weight:700;font-size:1.3rem;letter-spacing:-.01em}
 .plan .freq{color:var(--w-65);font-size:.9rem;margin-top:4px}
@@ -178,7 +178,7 @@ section{position:relative;min-height:100vh;display:flex;flex-direction:column;ju
 .plan.selected .radio{border-color:var(--cyan)}
 .plan.selected .radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
 .plan.selected .pick{color:var(--cyan)}
-.plan .flag{position:absolute;right:-34px;top:20px;transform:rotate(45deg);background:var(--cyan);color:var(--ink);font-family:'Poppins';font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 40px}
+.plan .flag{flex:none;display:inline-flex;align-items:center;gap:5px;background:var(--cyan);color:var(--ink);font-family:'Poppins';font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:100px;box-shadow:0 6px 16px rgba(31,232,216,.3)}
 .mininote{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .note-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:100px;padding:11px 20px;font-size:.86rem;color:var(--w-65)}
 .note-pill b{color:var(--cyan);font-family:'Poppins';font-weight:600}
@@ -373,8 +373,7 @@ section{position:relative;min-height:100vh;display:flex;flex-direction:column;ju
       </div>
 
       <div class="plan selected r d4" data-opt="Plan Continuo · 12 encuentros">
-        <span class="flag">Recomendado</span>
-        <div class="ptop"><span class="pmod">Plan Continuo</span></div>
+        <div class="ptop"><span class="pmod">Plan Continuo</span><span class="flag">★ Recomendado</span></div>
         <h3>12 encuentros</h3>
         <p class="freq">Uno por mes · 90 minutos</p>
         <div class="amount">$9.600.000 <small>+ IVA anual · $800.000 por encuentro</small></div>
